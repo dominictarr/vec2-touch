@@ -10,16 +10,21 @@ function Touch () {
 
 // should not be called by user.
 // only browser should move touches.
-Touch.prototype._set = function (e, ev) {
-  console.log(e)
-  this.force  = (e.force || e.webkitForce)
+Touch.prototype._update = function (e, ev) {
+  ev = ev || e
+  this.force  = (
+    e.force || e.webkitForce || 
+    Math.min((1 + ev.ctrlKey + ev.altKey + ev.shiftKey) / 3, 1)
+  )
+
   this.event  = ev
-  this.id     = e.identifier
+  this.id     = e.identifier != null ? e.identifier : -1
   this.target = e.target
-  this.type   = ev.type.substring(5)
-  touch.end = this.type === 'end'
+  this.type   = ev.type
+  this.end = /(end|up)$/.test(this.type)
   this.set(e.clientX, e.clientY)
-  if(this.type == 'end') {
+
+  if(this.end) {
     this.change()
     this.observers = [] //deregister listeners
   }
@@ -42,16 +47,16 @@ module.exports = function (el, handler, opts) {
   }
 
   var touchStart = each(function (e, ev) {
-    handler(touches[e.identifier] = new Touch()._set(e, ev), touches)
+    handler(touches[e.identifier] = new Touch()._update(e, ev), touches)
   })
 
   var touchMove = each(function (e, ev) {
-    touches[e.identifier]._set(e, ev)
+    touches[e.identifier]._update(e, ev)
   })
 
   var touchEnd = each(function (e, ev) {
-    touches[e.identifier]._set(e, ev)
-    touches[e.identifier] = null
+    touches[e.identifier]._update(e, ev)
+    delete touches[e.identifier]
   })
 
   el.addEventListener('touchstart',    touchStart)
@@ -60,5 +65,22 @@ module.exports = function (el, handler, opts) {
   el.addEventListener('MozTouchStart', touchStart)
   el.addEventListener('MozTouchMove',  touchMove)
   el.addEventListener('MozTouchEnd',   touchEnd)
+  
+  if(opts.mouse !== false) {
+    var down = false
+    el.addEventListener('mousedown', function (ev) {
+      down = true
+      handler(touches[-1] = new Touch()._update(ev), touches)
+    }) 
+    el.addEventListener('mousemove', function (ev) {
+      if(!down) return
+      touches[-1]._update(ev)
+    })
+    el.addEventListener('mouseup',   function (ev) {
+      down = false
+      touches[-1]._update(ev)    
+      delete touches[-1]
+    }) 
+  }
 }
 
