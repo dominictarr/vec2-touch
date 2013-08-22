@@ -1,0 +1,11 @@
+{
+  "name": "Hello Touch",
+  "description": "Hello Touch",
+  "launch_path": "/index.html",
+  "developer": {
+    "name": "Dominic Tarr <dominic.tarr@gmail.com>",
+    "url": "https://github.com/dominictarr/fxos-hello-world"
+  },
+  "installs_allowed_from": ["*"],
+  "orientation": "portrait-primary"
+}
