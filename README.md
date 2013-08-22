@@ -22,8 +22,10 @@ and you have power over it.
 Html is merely theurgy, speak the right incartations and the browser spirits
 with appear, but say the wrong ones and the will hurt you.
 
-But, geometry is true Rule Magic.
-If you can speak to geometry then you can control the forces that breath life into 
+But, geometry is true Rule Magic!
+
+If you can speak the words of power,
+you will control that which breaths life into
 the browser spirits and they will be forced to do your bidding.
 
 See also: [vec2](https://github.com/tmpvar/vec2.js)
