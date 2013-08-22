@@ -66,6 +66,9 @@ Listen for touches - when a touch starts, the listener is called.
 The listener should then call `touch.change(onChange)` to receive
 updates as the touch moves.
 
+Optionally, you may pass in an `element` to detect touches on,
+by default it will detect touches on the body itself.
+
 ### Touch 
 
 Object representing a touch. This is an subclass of
