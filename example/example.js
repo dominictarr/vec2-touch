@@ -84,7 +84,7 @@ vtouch(function (touch, touches) {
 
     last.set(touch)
 
-    if(touch.type == 'end') {
+    if(touch.end) {
       ctx.beginPath()
       crossHair(touch)
       ctx.stroke()
@@ -92,14 +92,11 @@ vtouch(function (touch, touches) {
 
     if(touches.length > 1
     && touches.every(function (e) { return e && e.type != 'end' })) {
-      //ctx.save()
       ctx.strokeStyle = 'white'
       ctx.moveTo(touches[0].x, touches[0].y)
       ctx.lineTo(touches[1].x, touches[1].y)
       ctx.stroke()
     }
-
-    console.log(touch.type + '!')
   })
 })
 
