@@ -35,7 +35,7 @@ See also: [vec2](https://github.com/tmpvar/vec2.js)
 track all touches on the page.
 
 ``` js
-var touches = require('dom-vector-touches')
+var touches = require('vector-touch')
 
 touches(function (touch) {
   //handle start here...
