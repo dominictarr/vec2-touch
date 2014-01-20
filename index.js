@@ -1,4 +1,9 @@
-var Vec2 = require('vec2')
+var Vec2;
+if (typeof require !== 'undefined') {
+  Vec2 = require('vec2');
+} else if (window !== 'undefined') {
+  Vec2 = window.Vec2;
+}
 
 Touch.prototype = new Vec2()
 
