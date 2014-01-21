@@ -1,4 +1,9 @@
-var Vec2 = require('vec2')
+var Vec2;
+if (typeof require !== 'undefined') {
+  Vec2 = require('vec2');
+} else if (window !== 'undefined') {
+  Vec2 = window.Vec2;
+}
 
 Touch.prototype = new Vec2()
 
@@ -31,7 +36,7 @@ Touch.prototype._update = function (e, ev) {
   return this
 }
 
-module.exports = function (el, handler, opts) {
+function vectorTouch(el, handler, opts) {
 
   if('function' === typeof el)
     handler = el, el = document.documentElement, opts = handler || {}
@@ -84,3 +89,10 @@ module.exports = function (el, handler, opts) {
   }
 }
 
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = vectorTouch;
+}
+
+if (typeof window !== 'undefined') {
+  window.vectorTouch = vectorTouch;
+}
