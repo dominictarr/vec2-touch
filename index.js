@@ -61,12 +61,11 @@ function vectorTouch(el, handler, opts) {
 
   var touchEnd = each(function (e, ev) {
     touches[e.identifier]._update(e, ev)
-    delete touches[e.identifier]
   })
 
   el.addEventListener('touchstart',    touchStart)
   el.addEventListener('touchmove',     touchMove)
-  el.addEventListener('touchend',      touchEnd)
+  el.addEventListener('touchend',      function(e) { touchEnd(e) ; delete touches[e.identifier] })
   
   if(opts.mouse !== false) {
     var down = false
