@@ -67,9 +67,6 @@ function vectorTouch(el, handler, opts) {
   el.addEventListener('touchstart',    touchStart)
   el.addEventListener('touchmove',     touchMove)
   el.addEventListener('touchend',      touchEnd)
-  el.addEventListener('MozTouchStart', touchStart)
-  el.addEventListener('MozTouchMove',  touchMove)
-  el.addEventListener('MozTouchEnd',   touchEnd)
   
   if(opts.mouse !== false) {
     var down = false
